@@ -1,0 +1,704 @@
+{
+	"info": {
+		"_postman_id": "ac2bdaee-6022-4e05-8038-9f5d6ec4895e",
+		"name": "URL Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6272551"
+	},
+	"item": [
+		{
+			"name": "urls",
+			"item": [
+				{
+					"name": "URL Add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if (jsonData.shortened_url) {\r",
+									"    var parts = jsonData.shortened_url.split(\"/\");\r",
+									"    pm.collectionVariables.set(\"short_url_path\", parts[parts.length - 1]);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"url\": \"https://alperencubuk.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/urls",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"urls"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "URL Add",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"url\": \"https://alperencubuk.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/urls",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:30:26 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "185"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"url\": \"https://alperencubuk.com/\",\n    \"shortened_url\": \"http://localhost:8000/urls/76cc90e2-1bfe-40b8-a66c-a977307def03\",\n    \"times_clicked\": 0,\n    \"create_date\": \"2023-11-13T21:30:27.860036\"\n}"
+						}
+					]
+				},
+				{
+					"name": "URL List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/urls?page=1&size=50&sort=id&order=desc",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"urls"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "page"
+								},
+								{
+									"key": "size",
+									"value": "50",
+									"description": "item per page"
+								},
+								{
+									"key": "sort",
+									"value": "id",
+									"description": "id, times_clicked"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "asc, desc"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "URL List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/urls?page=1&size=50&sort=id&order=desc",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "page"
+										},
+										{
+											"key": "size",
+											"value": "50",
+											"description": "item per page"
+										},
+										{
+											"key": "sort",
+											"value": "id",
+											"description": "id, times_clicked"
+										},
+										{
+											"key": "order",
+											"value": "desc",
+											"description": "asc, desc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 23:12:45 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "415"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"page\": 1,\n    \"size\": 50,\n    \"total\": 2,\n    \"pages\": 1,\n    \"urls\": [\n        {\n            \"id\": 2,\n            \"url\": \"https://github.com/\",\n            \"shortened_url\": \"http://localhost:8000/urls/7d449dde-1b56-4911-a85a-f0285240a957\",\n            \"times_clicked\": 0,\n            \"create_date\": \"2023-11-13T23:12:11.846325\"\n        },\n        {\n            \"id\": 1,\n            \"url\": \"https://alperencubuk.com/\",\n            \"shortened_url\": \"http://localhost:8000/urls/e545a934-b43c-4e99-86c2-56f830df6c92\",\n            \"times_clicked\": 2,\n            \"create_date\": \"2023-11-13T23:12:00.625547\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "URL Redirect",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/urls/{{short_url_path}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"urls",
+								"{{short_url_path}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "URL Redirect",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "content-type",
+									"value": "text/html"
+								},
+								{
+									"key": "last-modified",
+									"value": "Mon, 27 Feb 2023 11:52:41 GMT"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "content-encoding",
+									"value": "br"
+								},
+								{
+									"key": "vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "content-length",
+									"value": "901"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:31:15 GMT"
+								},
+								{
+									"key": "server",
+									"value": "LiteSpeed"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000, h3-Q050=\":443\"; ma=2592000, h3-Q046=\":443\"; ma=2592000, h3-Q043=\":443\"; ma=2592000, quic=\":443\"; ma=2592000; v=\"43,46\""
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE HTML>\n<html>\n    <head>\n        <title>Alperen Çubuk</title>\n        <meta charset=\"utf-8\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n        <!--[if lte IE 8]>\n        <script src=\"assets/js/ie/html5shiv.js\"></script>\n        <![endif]-->\n        <link rel=\"stylesheet\" href=\"assets/css/main.css\" />\n        <!--[if lte IE 8]>\n        <link rel=\"stylesheet\" href=\"assets/css/ie8.css\" />\n        <![endif]-->\n        <!--[if lte IE 9]>\n        <link rel=\"stylesheet\" href=\"assets/css/ie9.css\" />\n        <![endif]-->\n        <meta name=\"description\" content=\"Alperen Çubuk Resmi Kişisel Web Sitesi\" />\n        <meta name=\"keywords\" content=\"Alperen Çubuk, Alperen, Çubuk, Cubuk, Bilgisayar, Mühendis, Karadeniz Teknik Üniversitesi\" />\n        <meta name=\"author\" content=\"Alperen Çubuk\" />\n        <meta property=\"og:title\" content=\"Alperen Çubuk\"/>\n        <meta property=\"og:image\" content=\"https://www.alperencubuk.com/assets/css/images/alperencubuk.jpg\"/>\n        <meta property=\"og:url\" content=\"https://www.alperencubuk.com\"/>\n        <meta property=\"og:site_name\" content=\"Alperen Çubuk\"/>\n        <meta property=\"og:description\" content=\"Alperen Çubuk Resmi Kişisel Web Sitesi\"/>\n        <meta name=\"twitter:title\" content=\"Alperen Çubuk\" />\n        <meta name=\"twitter:image\" content=\"https://www.alperencubuk.com/assets/css/images/alperencubuk.jpg\" />\n        <meta name=\"twitter:url\" content=\"https://www.alperencubuk.com\" />\n        <meta name=\"twitter:card\" content=\"Alperen Çubuk\" />\n        <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/assets/css/icons/apple-touch-icon.png\">\n        <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/assets/css/icons/favicon-32x32.png\">\n        <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/assets/css/icons/favicon-16x16.png\">\n        <link rel=\"manifest\" href=\"/assets/css/icons/site.webmanifest\">\n        <link rel=\"mask-icon\" href=\"/assets/css/icons/safari-pinned-tab.svg\" color=\"#5bbad5\">\n        <link rel=\"shortcut icon\" href=\"/assets/css/icons/favicon.ico\">\n        <meta name=\"msapplication-TileColor\" content=\"#2d89ef\">\n        <meta name=\"msapplication-config\" content=\"/assets/css/icons/browserconfig.xml\">\n        <meta name=\"theme-color\" content=\"#ffffff\">\n\t\n    </head>\n    <body class=\"loading\">\n        <div id=\"wrapper\">\n            <div id=\"bg\"></div>\n            <div id=\"overlay\"></div>\n            <div id=\"main\">\n                <!-- Header -->\n                <header id=\"header\">\n                    <h1>Alperen Çubuk</h1>\n                    <p>Software Engineer</p>\n                    <nav>\n                        <ul>\n                            <li>\n                                <a target=\"_blank\" href=\"https://www.facebook.com/alperencubuk\" class=\"icon fa-facebook\">\n                                    <span class=\"label\">Facebook</span>\n                                </a>\n                            </li>\n                            <li>\n                                <a target=\"_blank\" href=\"https://www.twitter.com/alperencubuk\" class=\"icon fa-twitter\">\n                                    <span class=\"label\">Twitter</span>\n                                </a>\n                            </li>\n                            <li>\n                                <a target=\"_blank\" href=\"https://www.linkedin.com/in/alperencubuk\" class=\"icon fa-linkedin\">\n                                    <span class=\"label\">LinkedIn</span>\n                                </a>\n                            </li>\n                            <li>\n                                <a target=\"_blank\" href=\"https://www.github.com/alperencubuk\" class=\"icon fa-github\">\n                                    <span class=\"label\">Github</span>\n                                </a>\n                            </li>\n                            <li>\n                                <a target=\"_blank\" href=\"mailto:alperencubuk@gmail.com\" class=\"icon fa-envelope-o\">\n                                    <span class=\"label\">Email</span>\n                                </a>\n                            </li>\n                        </ul>\n                    </nav>\n                </header>\n                <!-- Footer -->\n                <footer id=\"footer\">\n                    <span class=\"copyright\"></span>\n                </footer>\n            </div>\n        </div>\n        <!--[if lte IE 8]>\n        <script src=\"assets/js/ie/respond.min.js\"></script>\n        <![endif]-->\n        <script>\n\t\t\twindow.onload = function() { document.body.className = ''; }\n\t\t\twindow.ontouchmove = function() { return false; }\n\t\t\twindow.onorientationchange = function() { document.body.scrollTop = 0; }\n\t\t</script>\n    </body>\n</html>"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:32:55 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "65"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Url '76cc90e2-1bfe-40b8-a66c-a977307def03' not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "URL Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"firstn\",\r\n    \"last_name\": \"lastn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/urls/{{short_url_path}}?redirect=false",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"urls",
+								"{{short_url_path}}"
+							],
+							"query": [
+								{
+									"key": "redirect",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "URL Get",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"firstn\",\r\n    \"last_name\": \"lastn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}?redirect=false",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									],
+									"query": [
+										{
+											"key": "redirect",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:31:55 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "185"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"url\": \"https://alperencubuk.com/\",\n    \"shortened_url\": \"http://localhost:8000/urls/76cc90e2-1bfe-40b8-a66c-a977307def03\",\n    \"times_clicked\": 1,\n    \"create_date\": \"2023-11-13T21:30:27.860036\"\n}"
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"firstn\",\r\n    \"last_name\": \"lastn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}?redirect=false",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									],
+									"query": [
+										{
+											"key": "redirect",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:32:41 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "65"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Url '76cc90e2-1bfe-40b8-a66c-a977307def03' not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "URL Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/urls/{{short_url_path}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"urls",
+								"{{short_url_path}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "URL Delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:32:18 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/urls/{{short_url_path}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"urls",
+										"{{short_url_path}}"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "date",
+									"value": "Mon, 13 Nov 2023 21:32:25 GMT"
+								},
+								{
+									"key": "server",
+									"value": "uvicorn"
+								},
+								{
+									"key": "content-length",
+									"value": "65"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Url '76cc90e2-1bfe-40b8-a66c-a977307def03' not found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Health Check",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 13 Nov 2023 21:30:03 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "28"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"api\": true,\n    \"database\": true\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "short_url_path",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
