@@ -147,7 +147,7 @@ order: str = asc or desc (optional) (defaul=asc)
   "Urls": {
     "url": "str",
     "shortened_url": "uuid",
-    "number_of_uses": "int"
+    "times_clicked": "int"
   }
 }
 ```
