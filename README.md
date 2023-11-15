@@ -21,7 +21,7 @@ docker compose up --build
 docker exec api pytest
 ```
 
-### Coverage (%96):
+### Coverage (%95):
 
 ```
 docker exec api coverage run -m pytest
@@ -82,7 +82,7 @@ Redirect to URL
 
 #### Request:
 ```http request
-GET /urls/{short_url_path}?redirect=False
+GET /urls/{short_url_path}?redirect=false
 
 Query:
 redirect: bool = Redirect or get json (defaul=True)

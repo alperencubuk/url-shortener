@@ -1,6 +1,8 @@
 from datetime import datetime
+from typing import Any
 
-from pydantic import UUID4, BaseModel, Field, HttpUrl, model_validator
+from fastapi import HTTPException, status
+from pydantic import UUID4, BaseModel, Field, HttpUrl, ValidationError, model_validator
 
 from source.app.url.enums import Order, Sort
 from source.core.schemas import PageSchema, ResponseSchema
@@ -38,6 +40,15 @@ class UrlPage(PageSchema):
 
 class UrlPagination(BaseModel):
     page: int = Field(default=1, ge=1)
-    size: int = Field(default=50, ge=0)
+    size: int = Field(default=50, ge=1)
     sort: Sort = Sort.ID
     order: Order = Order.ASC
+
+    def __init__(self, **data: Any) -> None:
+        try:
+            super(UrlPagination, self).__init__(**data)
+        except ValidationError as error:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=error.errors(),
+            )
