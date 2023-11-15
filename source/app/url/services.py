@@ -35,7 +35,7 @@ async def list_url(
         page=page,
         size=size,
         total=total,
-        pages=((total + size - 1) // size if size else 1),
+        pages=((total + size - 1) // size),
     )
 
 

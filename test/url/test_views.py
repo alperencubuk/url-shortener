@@ -52,6 +52,7 @@ async def test_url_redirect(client: AsyncClient, db: AsyncSession):
     response = await client.get(url=f"/urls/{url.shortened_url}")
 
     assert response.status_code == status.HTTP_307_TEMPORARY_REDIRECT
+    assert response.headers["location"] == param
 
 
 @pytest.mark.asyncio
@@ -70,6 +71,13 @@ async def test_url_list(client: AsyncClient, db: AsyncSession):
     assert data["size"] == 5
     assert data["total"] is not None
     assert data["pages"] is not None
+
+    response = await client.get(url="/urls/", params={"page": -5, "size": -5})
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    data = response.json()
+    assert data["detail"][0]["loc"][0] == "page"
+    assert data["detail"][1]["loc"][0] == "size"
 
 
 @pytest.mark.asyncio
