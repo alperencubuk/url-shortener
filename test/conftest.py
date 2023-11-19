@@ -6,7 +6,8 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy_utils import create_database, drop_database
 
-from source.core.database import Base, get_db
+from source.core.database import get_db
+from source.core.models import Base
 from source.core.settings import settings
 from source.main import app
 

@@ -1,6 +1,7 @@
 import uuid
 
-from sqlalchemy import UUID, Column, Integer, String
+from pydantic import UUID4
+from sqlalchemy.orm import Mapped, mapped_column
 
 from source.core.models import Model
 
@@ -8,8 +9,8 @@ from source.core.models import Model
 class UrlModel(Model):
     __tablename__ = "Urls"
 
-    url = Column(name="url", type_=String)
-    shortened_url = Column(
-        name="shortened_url", type_=UUID(as_uuid=True), index=True, default=uuid.uuid4
+    url: Mapped[str]
+    shortened_url: Mapped[UUID4] = mapped_column(
+        default=uuid.uuid4, index=True, unique=True
     )
-    times_clicked = Column(name="times_clicked", type_=Integer, default=0)
+    times_clicked: Mapped[int] = mapped_column(default=0)

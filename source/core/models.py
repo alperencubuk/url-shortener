@@ -1,10 +1,20 @@
-from sqlalchemy import Column, DateTime, Integer, func
+from datetime import datetime
 
-from source.core.database import Base
+from sqlalchemy import func
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 class Model(Base):
     __abstract__ = True
 
-    id = Column(name="id", type_=Integer, primary_key=True, autoincrement=True)
-    create_date = Column(name="create_date", type_=DateTime, default=func.now())
+    id: Mapped[int] = mapped_column(
+        primary_key=True,
+        autoincrement=True,
+        unique=True,
+        index=True,
+    )
+    create_date: Mapped[datetime] = mapped_column(default=func.now())
