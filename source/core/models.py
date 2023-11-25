@@ -12,9 +12,6 @@ class Model(Base):
     __abstract__ = True
 
     id: Mapped[int] = mapped_column(
-        primary_key=True,
-        autoincrement=True,
-        unique=True,
-        index=True,
+        primary_key=True, autoincrement=True, unique=True, index=True, sort_order=-1
     )
     create_date: Mapped[datetime] = mapped_column(default=func.now())
